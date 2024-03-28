@@ -28,7 +28,8 @@ p_game2.set_today_num(today_num)
 
 num1 = p_game1.get_proparea_num()
 num2 = p_game1.get_backarea_num()
-p_game1.calc_winning_level(len(num1), len(num2))
+level = p_game1.calc_winning_level(len(num1), len(num2))
+print(level)
 
 num3 = p_game2.get_proparea_num()
 num4 = p_game2.get_backarea_num()

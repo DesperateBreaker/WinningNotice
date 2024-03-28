@@ -26,18 +26,18 @@ class game:
 
     def calc_winning_level(self, prop_num, back_num):
         key = prop_num + 10 * back_num
-        if key in self._rulue_dict:
-            level = self._rulue_dict[key]
-        else:
-            level = 0
+        # if key in self._rulue_dict:
+        #     level = self._rulue_dict[key]
+        # else:
+        #     level = 0
         
-        return level
+        return self._rulue_dict.get(key, None)
 
 
 # ballgame:  6 + 1
 class ballgame(game):
     def __int__(self):
-        __super().__init(self)
+        super().__init__ ()
         self._rulue_dict = {16: 1, 6: 2, 15: 3, 5: 4, 14: 4, 4: 5, 13: 5, 10: 6, 11: 6, 12: 6}          # rule: prop_num * 1 + back_num * 10
 
     def get_proparea_num(self):
@@ -59,8 +59,8 @@ class ballgame(game):
 
 # lottogame:  5 + 2
 class lottogame(game):
-    def __int__(self):
-        __super().__init(self)
+    def __init__ (self):
+        super().__init__()
         self._rulue_dict = {25: 1, 15: 2, 5: 3, 24: 4, 14: 5, 23: 6, 4: 7, 13: 8, 22: 8, 3: 9, 12: 9, 21: 9}          # rule: prop_num * 1 + back_num * 10
 
     def get_proparea_num(self):
