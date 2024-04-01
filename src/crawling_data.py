@@ -36,8 +36,7 @@ class Crawling(ABC):
         int_ball_list = [int(x) for x in ball]
 
         return page, int_ball_list
-    
-    
+
     # 打开页面
     def _turn_page(self, begin, end):
         # url = "http://kaijiang.500.com/ssq.shtml"
@@ -63,7 +62,6 @@ class Crawling(ABC):
             id_index = id_index + 1
 
         return id_map, data_map
-
 
     def print_to_csv(self):
         # TODO
@@ -96,7 +94,6 @@ class LottoCrawling(Crawling):
         self._url = "http://kaijiang.500.com/dlt.shtml"
         super().__init__(start_id, end_id)
         
-
 
 if __name__ == '__main__':
     pobj = BallCrawling(0, 10)

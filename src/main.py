@@ -13,7 +13,7 @@ body = ""
 
 
 # 创建开奖通知信息
-def creat_notice(notice_dict):
+def crate_notice(notice_dict):
     notice1 = "【 {} 】：开奖期号：{},  恭喜您中 {} 等奖, 预计奖金为 {} 元。\n".format(notice_dict["name"], notice_dict["id"], notice_dict["win_level"], notice_dict["win_money"])
     
     today_num = "[" + ", ".join(map(str, notice_dict["today_num"])) + "]"
@@ -27,12 +27,11 @@ def creat_notice(notice_dict):
     return notice1 + notice2 + notice3
 
 
-
 # main
 if __name__ == '__main__':
     cur_date = datetime.date.today()
 
-    weekday = cur_date.weekday() + 2    # 星期一: 1  ...  星期日: 7
+    weekday = cur_date.weekday() + 1    # 星期一: 1  ...  星期日: 7
 
     lotto_weekday = [1, 3, 6]           # lotto 开奖日
     ball_weekday = [2, 4, 7]            # ball  开奖日
@@ -70,12 +69,12 @@ if __name__ == '__main__':
     p_game2.set_today_num(today_num, today_issue)                 
     
     # 创建中奖信息
-    win_info1 = p_game1.creat_win_info()                          
-    win_info2 = p_game2.creat_win_info()
+    win_info1 = p_game1.crate_win_info()                          
+    win_info2 = p_game2.crate_win_info()
 
     # 创建开奖消息
-    win_notice1 = creat_notice(win_info1)
-    win_notice2 = creat_notice(win_info2)
+    win_notice1 = crate_notice(win_info1)
+    win_notice2 = crate_notice(win_info2)
     print(win_notice1 + win_notice2)
 
     # 发送信息

@@ -1,10 +1,10 @@
 # game object
 from abc import ABC, abstractmethod
 
-# ball_rulue_dict
+# ball_rule_dict
 # key: score    value: level
 # score = prop_num * 1 + back_num * 10
-ball_rulue_dict = {
+ball_rule_dict = {
     16: 1,
     6: 2,
     15: 3,
@@ -17,10 +17,10 @@ ball_rulue_dict = {
     12: 6
 }
 
-# lotto_rulue_dict
+# lotto_rule_dict
 # key: score    value: level
 # score = prop_num * 1 + back_num * 10
-lotto_rulue_dict = {
+lotto_rule_dict = {
     25: 1,
     15: 2,
     5: 3,
@@ -44,7 +44,7 @@ class game:
         self.name = ""
         self._today_num_list = [0] * 7
         self._my_num_list = [0] * 7
-        self._rulue_dict = {}
+        self._rule_dict = {}
         self._prop_num = 0
         self._back_num = 0
         self._win_money_list = []
@@ -66,9 +66,9 @@ class game:
 
     def calc_winning_level(self, prop_num, back_num):
         key = prop_num + 10 * back_num
-        return self._rulue_dict.get(key, 0)
+        return self._rule_dict.get(key, 0)
 
-    def creat_win_info(self):
+    def crate_win_info(self):
         notice_dict = {
             "name": "",
             "id": "",
@@ -109,7 +109,7 @@ class ballgame(game):
         self.name = "ball"
         self._prop_num = 6
         self._back_num = 1
-        self._rulue_dict = ball_rulue_dict
+        self._rule_dict = ball_rule_dict
         self._win_money_list = ["0", "500w", "20w", "3000", "200", "10", "5"]  # key: win_level value: win_money
 
     def get_proparea_num(self):
@@ -136,7 +136,7 @@ class lottogame(game):
         self.name = "lotto"
         self._prop_num = 5
         self._back_num = 2
-        self._rulue_dict = lotto_rulue_dict
+        self._rule_dict = lotto_rule_dict
         self._win_money_list = ["0", "1000w", "20w", "10000", "3000", "300", "200", "100", "15",
                                 "5"]  # key: win_level value: win_money
 
