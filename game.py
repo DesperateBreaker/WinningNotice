@@ -1,22 +1,62 @@
 # game object
 from abc import ABC, abstractmethod
 
+# ball_rulue_dict
+# key: score    value: level
+# score = prop_num * 1 + back_num * 10
+ball_rulue_dict = {
+    16: 1,
+    6: 2,
+    15: 3,
+    5: 4,
+    14: 4,
+    4: 5,
+    13: 5,
+    10: 6,
+    11: 6,
+    12: 6
+}
+
+# lotto_rulue_dict
+# key: score    value: level
+# score = prop_num * 1 + back_num * 10
+lotto_rulue_dict = {
+    25: 1,
+    15: 2,
+    5: 3,
+    24: 4,
+    14: 5,
+    23: 6,
+    4: 7,
+    13: 8,
+    22: 8,
+    3: 9,
+    12: 9,
+    21: 9
+}
+
+
 # base class
 class game:
     @abstractmethod
     def __init__(self):
         self.id = 0
+        self.name = ""
         self._today_num_list = [0] * 7
         self._my_num_list = [0] * 7
         self._rulue_dict = {}
+        self._prop_num = 0
+        self._back_num = 0
+        self._win_money_list = []
 
     def set_my_num(self, my_num):
         for index, value in enumerate(my_num):
             self._my_num_list[index] = value
 
-    def set_today_num(self, today_num):
+    def set_today_num(self, today_num, id=0):
         for index, value in enumerate(today_num):
             self._today_num_list[index] = value
+        self.id = id
 
     def get_proparea_num(self):
         pass
@@ -26,19 +66,51 @@ class game:
 
     def calc_winning_level(self, prop_num, back_num):
         key = prop_num + 10 * back_num
-        # if key in self._rulue_dict:
-        #     level = self._rulue_dict[key]
-        # else:
-        #     level = 0
-        
-        return self._rulue_dict.get(key, None)
+        return self._rulue_dict.get(key, 0)
+
+    def creat_win_info(self):
+        notice_dict = {
+            "name": "",
+            "id": "",
+            "today_num": [],
+            "my_num": [],
+            "prop_num": [],
+            "prop_status": "",
+            "back_num": [],
+            "back_status": "",
+            "win_level": 0,
+            "win_money": 0,
+        }
+
+        notice_dict["name"] = self.name
+        notice_dict["id"] = self.id
+        notice_dict["today_num"] = self._today_num_list
+        notice_dict["my_num"] = self._my_num_list
+
+        prop_win_num = self.get_proparea_num()
+        notice_dict["prop_num"] = prop_win_num
+        notice_dict["prop_status"] = str(len(prop_win_num)) + " / " + str(self._prop_num)
+
+        back_win_num = self.get_backarea_num()
+        notice_dict["back_num"] = back_win_num
+        notice_dict["back_status"] = str(len(back_win_num)) + " / " + str(self._back_num)
+
+        win_level = self.calc_winning_level(len(prop_win_num), len(back_win_num))
+        notice_dict["win_level"] = win_level
+        notice_dict["win_money"] = self._win_money_list[win_level]
+
+        return notice_dict
 
 
 # ballgame:  6 + 1
 class ballgame(game):
-    def __int__(self):
-        super().__init__ ()
-        self._rulue_dict = {16: 1, 6: 2, 15: 3, 5: 4, 14: 4, 4: 5, 13: 5, 10: 6, 11: 6, 12: 6}          # rule: prop_num * 1 + back_num * 10
+    def __init__(self):
+        super().__init__()
+        self.name = "ball"
+        self._prop_num = 6
+        self._back_num = 1
+        self._rulue_dict = ball_rulue_dict
+        self._win_money_list = ["0", "500w", "20w", "3000", "200", "10", "5"]  # key: win_level value: win_money
 
     def get_proparea_num(self):
         pro_num = self._today_num_list[0:-1]
@@ -59,9 +131,14 @@ class ballgame(game):
 
 # lottogame:  5 + 2
 class lottogame(game):
-    def __init__ (self):
+    def __init__(self):
         super().__init__()
-        self._rulue_dict = {25: 1, 15: 2, 5: 3, 24: 4, 14: 5, 23: 6, 4: 7, 13: 8, 22: 8, 3: 9, 12: 9, 21: 9}          # rule: prop_num * 1 + back_num * 10
+        self.name = "lotto"
+        self._prop_num = 5
+        self._back_num = 2
+        self._rulue_dict = lotto_rulue_dict
+        self._win_money_list = ["0", "1000w", "20w", "10000", "3000", "300", "200", "100", "15",
+                                "5"]  # key: win_level value: win_money
 
     def get_proparea_num(self):
         pro_num = self._today_num_list[0:-2]
@@ -80,4 +157,3 @@ class lottogame(game):
                 win_num.append(self._my_num_list[i])
 
         return win_num
-        
