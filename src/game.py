@@ -37,7 +37,7 @@ lotto_rule_dict = {
 
 
 # base class
-class game:
+class Game:
     @abstractmethod
     def __init__(self):
         self.id = 0
@@ -103,7 +103,7 @@ class game:
 
 
 # ballgame:  6 + 1
-class ballgame(game):
+class BallGame(Game):
     def __init__(self):
         super().__init__()
         self.name = "ball"
@@ -130,7 +130,7 @@ class ballgame(game):
 
 
 # lottogame:  5 + 2
-class lottogame(game):
+class LottoGame(Game):
     def __init__(self):
         super().__init__()
         self.name = "lotto"

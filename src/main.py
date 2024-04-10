@@ -48,17 +48,17 @@ if __name__ == '__main__':
     p_game2 = None
     if weekday in lotto_weekday:
         print("lotto")
-        p_game1 = game.lottogame()
+        p_game1 = game.LottoGame()
         p_game1.set_my_num(my_lotto_num1)
-        p_game2 = game.lottogame()
+        p_game2 = game.LottoGame()
         p_game2.set_my_num(my_lotto_num2)
         p_crawling = crawling.LottoCrawling(0, 2)                    # 爬取 3 期数据
         today_num, today_issue = p_crawling.get_ball_num(0)          # 获取最新一期数据
     elif weekday in ball_weekday:
         print("ball")
-        p_game1 = game.ballgame()
+        p_game1 = game.BallGame()
         p_game1.set_my_num(my_ball_num1)
-        p_game2 = game.ballgame()
+        p_game2 = game.BallGame()
         p_game2.set_my_num(my_ball_num2)
         p_crawling = crawling.BallCrawling(0, 2)                     # 爬取 3 期数据
         today_num, today_issue = p_crawling.get_ball_num(0)          # 获取最新一期数据

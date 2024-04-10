@@ -95,10 +95,16 @@ class LottoCrawling(Crawling):
         super().__init__(start_id, end_id)
         
 
-if __name__ == '__main__':
+# test
+def __test():
     pobj = BallCrawling(0, 10)
     temp = pobj.get_ball_num(0)
     print(temp)
     pobj2 = LottoCrawling(0, 10)
     temp = pobj2.get_ball_num(0)
     print(temp)
+
+
+# do unit test
+if __name__ == '__main__':
+    __test()
