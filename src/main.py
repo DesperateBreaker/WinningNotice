@@ -2,6 +2,7 @@ import datetime
 import game
 import email_send as my_email
 import crawling_data as crawling
+import sys
 
 
 # 设置发送邮件的相关参数
@@ -62,7 +63,8 @@ if __name__ == '__main__':
         p_crawling = crawling.BallCrawling(0, 2)                     # 爬取 3 期数据
         today_num, today_issue = p_crawling.get_ball_num(0)          # 获取最新一期数据
     else:
-        print("return")
+        print("Not lotto and ball")
+        sys.exit(0)
 
     # 设置当天中奖号码
     p_game1.set_today_num(today_num, today_issue)                 
