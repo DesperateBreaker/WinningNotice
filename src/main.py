@@ -83,8 +83,7 @@ if __name__ == '__main__':
     send = False
     if send:
         body = win_notice1 + win_notice2
-        for receiver_email in receiver_email_list:
-            my_email.send_email(sender_email, sender_password, receiver_email, subject, message=body)
+        my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=body)          # 发送
 
 
 
