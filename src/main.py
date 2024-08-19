@@ -45,12 +45,20 @@ def update_data(game_name, cur_id, bonus):
 # return: BuyInfo
 def judge_buy_notice(game_name):
     data = js_rw.read_json_file(data_path)
-    curId = data[game_name]["curId"]
-    startId = data[game_name]["startId"]
-    pepriods = data[game_name]["pepriods"]
+    cur_id = int(data[game_name]["curId"])
+    start_id = int(data[game_name]["startId"])
+    period = int(data[game_name]["periods"])
+    bonus = data[game_name]["bonus"]
 
-    
-        
+    need_buy = False
+    info = ""
+
+    if (cur_id - start_id) >= period - 1:
+        need_buy = True
+        info = "您购买的 {} 期【 {} 】已于今日开奖完毕, 恭喜您累计中等奖 {} 元。\n".format(period, game_name, bonus)
+
+    return need_buy, info
+
 
 # main
 if __name__ == '__main__':
@@ -107,12 +115,19 @@ if __name__ == '__main__':
     update_data(win_info1["name"], int(win_info1["id"]), win_info1["win_money"] + win_info2["win_money"])
 
     # 判断是否需要发送购买提醒
+    needed_buy, buy_info = judge_buy_notice(win_info1["name"])
+    if needed_buy:
+        print(buy_info)
 
     # 发送信息
     send = False
     if send:
         body = win_notice1 + win_notice2
         my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=body)          # 发送
+
+        if needed_buy:
+            subject = win_info1["name"] + "购买提醒"
+            my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=buy_info)  # 发送
 
 
 

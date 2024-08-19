@@ -1,14 +1,14 @@
 {
     "lotto": {
         "curId": 24095,
-        "startId": 1,
-        "pepriods": 1,
+        "startId": 24096,
+        "periods": 6,
         "bonus": 0
     },
     "ball": {
-        "curId": 1,
-        "startId": 1,
-        "pepriods": 1,
+        "curId": 24095,
+        "startId": 24095,
+        "periods": 6,
         "bonus": 0
     }
 }
