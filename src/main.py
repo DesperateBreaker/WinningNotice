@@ -3,6 +3,7 @@ import game
 import email_send as my_email
 import crawling_data as crawling
 import sys
+import json_read_write as js_rw
 
 
 # 设置发送邮件的相关参数
@@ -11,6 +12,9 @@ sender_password = ""
 receiver_email_list = ["work123_email@sina.com", "sun_jia_hao@sina.com"]
 subject = "开奖信息"
 body = ""
+
+# data_path
+data_path = "data.json"
 
 
 # 创建开奖通知信息
@@ -27,6 +31,26 @@ def crate_notice(notice_dict):
 
     return notice1 + notice2 + notice3
 
+
+# 更新存储信息
+def update_data(game_name, cur_id, bonus):
+    data = js_rw.read_json_file(data_path)
+    data[game_name]["curId"] = cur_id
+    data[game_name]["bonus"] = data["ball"]["bonus"] + bonus
+    js_rw.write_json_file(data_path, data)
+
+
+# 判断是否需要发送购买梯形
+# return1: Yes/No
+# return: BuyInfo
+def judge_buy_notice(game_name):
+    data = js_rw.read_json_file(data_path)
+    curId = data[game_name]["curId"]
+    startId = data[game_name]["startId"]
+    pepriods = data[game_name]["pepriods"]
+
+    
+        
 
 # main
 if __name__ == '__main__':
@@ -78,6 +102,11 @@ if __name__ == '__main__':
     win_notice1 = crate_notice(win_info1)
     win_notice2 = crate_notice(win_info2)
     print(win_notice1 + win_notice2)
+
+    # 更新存储信息(开奖期号、奖金)
+    update_data(win_info1["name"], int(win_info1["id"]), win_info1["win_money"] + win_info2["win_money"])
+
+    # 判断是否需要发送购买提醒
 
     # 发送信息
     send = False

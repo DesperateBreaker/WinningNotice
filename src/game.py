@@ -71,7 +71,7 @@ class Game:
     def crate_win_info(self):
         notice_dict = {
             "name": "",
-            "id": "",
+            "id": 0,
             "today_num": [],
             "my_num": [],
             "prop_num": [],
@@ -110,7 +110,7 @@ class BallGame(Game):
         self._prop_num = 6
         self._back_num = 1
         self._rule_dict = ball_rule_dict
-        self._win_money_list = ["0", "500w", "20w", "3000", "200", "10", "5"]  # key: win_level value: win_money
+        self._win_money_list = [0, 5000000, 200000, 3000, 200, 10, 5]  # key: win_level value: win_money
 
     def get_proparea_num(self):
         pro_num = self._today_num_list[0:-1]
@@ -137,8 +137,7 @@ class LottoGame(Game):
         self._prop_num = 5
         self._back_num = 2
         self._rule_dict = lotto_rule_dict
-        self._win_money_list = ["0", "1000w", "20w", "10000", "3000", "300", "200", "100", "15",
-                                "5"]  # key: win_level value: win_money
+        self._win_money_list = [0, 10000000, 200000, 10000, 3000, 300, 200, 100, 15, 5]  # key: win_level value: win_money
 
     def get_proparea_num(self):
         pro_num = self._today_num_list[0:-2]
