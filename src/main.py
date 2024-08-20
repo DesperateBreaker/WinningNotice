@@ -121,7 +121,7 @@ if __name__ == '__main__':
         print(buy_info)
 
     # 发送信息
-    send = False
+    send = True
     if send:
         body = win_notice1 + win_notice2
         my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=body)          # 发送
