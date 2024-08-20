@@ -131,7 +131,7 @@ if __name__ == '__main__':
             my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=buy_info)  # 发送
 
     # 邮件发送测试
-    email_test = True
+    email_test = False
     if email_test:
         my_email.send_email(sender_email, sender_password, receiver_email_list, subject="Test", message="test")  # 发送
 
