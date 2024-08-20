@@ -7,9 +7,10 @@ import json_read_write as js_rw
 
 
 # 设置发送邮件的相关参数
-sender_email = "1369484462@qq.com"
-sender_password = ""
-receiver_email_list = ["work123_email@sina.com", "sun_jia_hao@sina.com"]
+email_data = js_rw.read_json_file("email_data.json")
+sender_email = email_data["sender_email"]
+sender_password = email_data["sender_password"]
+receiver_email_list = email_data["receiver_email_list"]
 subject = "开奖信息"
 body = ""
 
@@ -128,6 +129,11 @@ if __name__ == '__main__':
         if needed_buy:
             subject = win_info1["name"] + "购买提醒"
             my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=buy_info)  # 发送
+
+    # 邮件发送测试
+    email_test = True
+    if email_test:
+        my_email.send_email(sender_email, sender_password, receiver_email_list, subject="Test", message="test")  # 发送
 
 
 
