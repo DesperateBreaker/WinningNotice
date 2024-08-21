@@ -8,12 +8,11 @@ import json_read_write as js_rw
 # 调试标志  release 分支改为 False
 is_debug = True
 basic_path = "/usr/src/python/WinGame/"
+data_path = "data.json"
+email_data_path = "email_data.json"
 
 # data_path
-if is_debug:
-    data_path = "data.json"
-    email_data_path = "email_data.json"
-else:
+if not is_debug:
     data_path = basic_path + data_path
     email_data_path = basic_path + email_data_path
 
