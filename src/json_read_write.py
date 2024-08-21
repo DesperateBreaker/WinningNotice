@@ -28,4 +28,3 @@ def write_json_file(file_path, data):
 
 
 data = read_json_file("data.json")
-print(data)

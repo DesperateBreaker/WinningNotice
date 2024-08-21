@@ -5,17 +5,25 @@ import crawling_data as crawling
 import sys
 import json_read_write as js_rw
 
+# 调试标志  release 分支改为 False
+is_debug = True
+basic_path = "/usr/src/python/WinGame/"
+
+# data_path
+if is_debug:
+    data_path = "data.json"
+    email_data_path = "email_data.json"
+else:
+    data_path = basic_path + data_path
+    email_data_path = basic_path + email_data_path
 
 # 设置发送邮件的相关参数
-email_data = js_rw.read_json_file("email_data.json")
+email_data = js_rw.read_json_file(email_data_path)
 sender_email = email_data["sender_email"]
 sender_password = email_data["sender_password"]
 receiver_email_list = email_data["receiver_email_list"]
 subject = "开奖信息"
 body = ""
-
-# data_path
-data_path = "data.json"
 
 
 # 创建开奖通知信息
@@ -28,7 +36,7 @@ def crate_notice(notice_dict):
     
     prop_num = "[" + ", ".join(map(str, notice_dict["prop_num"])) + "]"
     back_num = "[" + ", ".join(map(str, notice_dict["back_num"])) + "]"
-    notice3 = "其中, 前区中奖号码为: {}, 中了 {} 个, 后区中奖号码为 {}, 中了 {} 个。\n".format(prop_num, notice_dict["prop_status"], back_num, notice_dict["back_status"])
+    notice3 = "其中, 前区中奖号码为: {}, 中了 {} 个, 后区中奖号码为 {}, 中了 {} 个。".format(prop_num, notice_dict["prop_status"], back_num, notice_dict["back_status"])
 
     return notice1 + notice2 + notice3
 
@@ -79,6 +87,7 @@ if __name__ == '__main__':
     today_issue = ""
     p_game1 = None
     p_game2 = None
+    print("\n------------------ " + cur_date.strftime('%Y-%m-%d') + " ------------------")
     if weekday in lotto_weekday:
         print("lotto")
         p_game1 = game.LottoGame()
@@ -121,8 +130,7 @@ if __name__ == '__main__':
         print(buy_info)
 
     # 发送信息
-    send = False
-    if send:
+    if not is_debug:
         body = win_notice1 + win_notice2
         my_email.send_email(sender_email, sender_password, receiver_email_list, subject, message=body)          # 发送
 
